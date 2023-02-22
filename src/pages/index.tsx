@@ -5,13 +5,13 @@ import { fetchJson } from '@/middlewares/utils'
 import { http } from '@/middlewares/utils'
 
 
-type Category = {
-    priority: int,
+interface Category {
+    priority: number,
     slug: string,
     name: string,
 }
 
-type Article = {
+interface Article {
     category: Category,
     slug: string,
     title: string,
@@ -19,12 +19,12 @@ type Article = {
     digest: string,
     image: string,
     tags: string[],
-    special: bool,
-    private: bool,
+    special: boolean,
+    private: boolean,
 }
 
 type Props = {
-  articles: Articles[]
+  articles: Article[]
 }
 
 export const getStaticProps = async () => {
@@ -35,7 +35,7 @@ export const getStaticProps = async () => {
   }
 }
 
-const Home:NextPage<Props> = (props) => {
+export const Home = (props: Props) => {
   const { articles } = props
   return (
     <div>
@@ -48,5 +48,3 @@ const Home:NextPage<Props> = (props) => {
     </div>
   )
 }
-
-export default Home
