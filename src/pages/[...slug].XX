@@ -1,0 +1,79 @@
+import { useRouter } from 'next/router'
+import useSWR, { SWRConfig, mutate } from 'swr'
+import { fetcher } from '@/middlewares/utils'
+import type { Article } from '@/middlewares/models'
+
+
+export const getStaticPaths = async () => {
+  const aa: Article[] = await fetcher('/articles')
+  console.log('APTHS', aa.map((a) => `/${a.category.slug}/${a.slug}`),)
+  return {
+    paths: aa.map((a) => `/${a.category.slug}/${a.slug}`),
+    fallback: 'blocking',
+  }
+}
+
+function to_path(cslug:string, aslug:string) {
+  return `/articles/${cslug}/${aslug}`
+}
+
+export const getStaticProps = async ({ params }) => {
+  console.log('PAARAMS', params)
+  const slug = params.slug
+  const path = to_path(slug[0], slug[1])
+  const res: Response = await fetcher(path, false)
+  if (res.status === 404) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const a: Article = await res.json()
+  return {
+    props:{
+      path: path,
+      fallback: {
+        [path]: a,
+      }
+    }
+  }
+}
+
+function Article({slug}) {
+  const path = to_path(slug[0], slug[1])
+  console.log('PATH', PATH)
+
+  const { data:article } = useSWR(path, fetcher)
+
+  const update_article = async () => {
+    const a = await fetcher(path)
+    mutate(path, a)
+  }
+
+  return (
+    <div>
+      <hr />
+      <h1 onClick={update_article}>{article.title}</h1>
+      <hr />
+      <div>{article.body}</div>
+      {/* <pre>data: {JSON.stringify(data)}</pre> */}
+    </div>
+  )
+}
+
+
+
+export default function({ fallback, path }) {
+  const router = useRouter()
+  const q = router.query
+
+
+  return (
+    <SWRConfig value={{ fallback }}>
+      <pre>slug: {JSON.stringify(q.slug)}</pre>
+      <pre>{JSON.stringify(path)}</pre>
+      <pre>{JSON.stringify(fallback)}</pre>
+      <Article slug={q.slug}/>
+    </SWRConfig>
+  )
+}
