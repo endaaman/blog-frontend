@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR, { SWRConfig, mutate } from 'swr'
+import MarkdownIt from 'markdown-it'
+// import markdownItPrism from 'markdown-it-prism'
+
 import { fetcher } from '@/middlewares/utils'
 import type { Article } from '@/middlewares/models'
 
@@ -38,8 +41,8 @@ export const getStaticProps = async ({ params:{ cslug, aslug } }) => {
 }
 
 function Article({cslug, aslug}) {
+  const router = useRouter()
   const path = to_path(cslug, aslug)
-
   const { data:article } = useSWR(path, fetcher)
 
   const updateArticle = async (e) => {
@@ -48,15 +51,17 @@ function Article({cslug, aslug}) {
     e.preventDefault()
   }
 
-  const router = useRouter()
+  const markdownIt = new MarkdownIt()
+
+  // markdownIt.use(markdownItPrism, {})
+  const innerHtml = markdownIt.render(article.body)
 
   return (
     <div>
       <hr />
       <Link href={router.asPath} onClick={updateArticle}><h1>{article.title}</h1></Link>
       <hr />
-      <div>{article.body}</div>
-      {/* <pre>data: {JSON.stringify(data)}</pre> */}
+      <div dangerouslySetInnerHTML={{ __html: innerHtml }}></div>
     </div>
   )
 }
