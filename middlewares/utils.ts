@@ -1,4 +1,3 @@
-
 export function fetchJson(url) {
   return fetch(url).then((res) => res.json())
 }
@@ -8,7 +7,6 @@ export function fetchJson(url) {
 export const fetcher = async (url: string, parse: boolean = true) => {
   const u = `${process.env.NEXT_PUBLIC_API_ORIGIN}${url}`
   const res = await fetch(u)
-  console.log('URL', u)
   if (parse) {
     return res.json()
   } else {

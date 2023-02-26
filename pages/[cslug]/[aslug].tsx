@@ -1,11 +1,16 @@
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR, { SWRConfig, mutate } from 'swr'
 import MarkdownIt from 'markdown-it'
-// import markdownItPrism from 'markdown-it-prism'
+import mdItContainer from 'markdown-it-container'
+import Prism from 'prismjs'
+import { parse as shellSplit } from 'shell-quote'
 
 import { fetcher } from '@/middlewares/utils'
 import type { Article } from '@/middlewares/models'
+
+
 
 
 export const getStaticPaths = async () => {
@@ -40,21 +45,55 @@ export const getStaticProps = async ({ params:{ cslug, aslug } }) => {
   }
 }
 
-function Article({cslug, aslug}) {
+function cusmizeMarkdownIt(md: MarkdownIt) {
+  md.use(mdItContainer, 'message', {
+    validate: function(param: string) {
+      const splitted = shellSplit(param.trim())
+      return splitted[0] === 'message'
+    },
+    render(tokens, idx, options, env, self) {
+      if (tokens[idx].nesting === 1) {
+        const param = tokens[idx].info.trim()
+        const [_, title, mode, icon] = shellSplit(param)
+        const modeClass = mode ? ` is-${mode}` : ''
+        let opening = `<article class="message${modeClass}">`
+        if (title) {
+          opening += `<div class="message-header"><p>`
+          if (icon) {
+            opening += `<i class="mdi mdi-18px mdi-${icon}"></i> `
+          }
+          opening += `${md.utils.escapeHtml(title)}</p></div>`
+        }
+        return opening + `<div class="message-body">`
+      } else {
+        return '</div></article>'
+      }
+    }
+  })
+
+
+}
+
+function ArticleComponent({cslug, aslug}) {
   const router = useRouter()
   const path = to_path(cslug, aslug)
   const { data:article } = useSWR(path, fetcher)
 
-  const updateArticle = async (e) => {
+  const md = new MarkdownIt()
+  cusmizeMarkdownIt(md)
+
+  useEffect(() => {
+    Prism.manual = true;
+    Prism.highlightAll()
+  })
+
+  const updateArticle = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     const a = await fetcher(path)
     mutate(path, a)
     e.preventDefault()
   }
 
-  const markdownIt = new MarkdownIt()
-
-  // markdownIt.use(markdownItPrism, {})
-  const innerHtml = markdownIt.render(article.body)
+  const innerHtml = md.render(article.body)
 
   return (
     <div>
@@ -74,9 +113,9 @@ export default function({ fallback, path }) {
 
   return (
     <SWRConfig value={{ fallback }}>
-      <pre>{JSON.stringify(path)}</pre>
-      <pre>{JSON.stringify(fallback)}</pre>
-      <Article cslug={cslug} aslug={aslug}/>
+      {/* <pre>{JSON.stringify(path)}</pre> */}
+      {/* <pre>{JSON.stringify(fallback)}</pre> */}
+      <ArticleComponent cslug={cslug} aslug={aslug}/>
     </SWRConfig>
   )
 }
