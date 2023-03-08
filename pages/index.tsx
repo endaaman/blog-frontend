@@ -1,9 +1,9 @@
 import type { NextPage , GetStaticProps } from 'next'
 import Link from 'next/link'
 import useSWR, { SWRConfig } from 'swr'
+
 import { fetcher } from '@/libs/utils'
 import type { Category, Article } from '@/libs/models'
-import { plainToClass } from 'class-transformer'
 
 
 export const getStaticProps = async (params) => {
@@ -18,7 +18,6 @@ export const getStaticProps = async (params) => {
 }
 
 function ArticleList() {
-  // const { data } = useSWR('/articles', typedFetcher(Article))
   const { data: articles } = useSWR('/articles', fetcher)
   return (<div>
     <ul>
