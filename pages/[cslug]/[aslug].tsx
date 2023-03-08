@@ -70,8 +70,6 @@ function cusmizeMarkdownIt(md: MarkdownIt) {
       }
     }
   })
-
-
 }
 
 function ArticleComponent({cslug, aslug}) {
