@@ -8,13 +8,13 @@ import Prism from 'prismjs'
 import { parse as shellSplit } from 'shell-quote'
 
 import { fetcher } from '@/libs/utils'
-import type { Article } from '@/libs/models'
+import { Article } from '@/libs/models'
 
 
 
 
 export const getStaticPaths = async () => {
-  const aa: Article[] = await fetcher('/articles')
+  const aa: Article[] = await fetcher(Article[])('/articles')
   return {
     paths: aa.map((a) => `/${a.category.slug}/${a.slug}`),
     fallback: 'blocking',
@@ -27,14 +27,14 @@ function to_path(cslug:string, aslug:string) {
 
 export const getStaticProps = async ({ params:{ cslug, aslug } }) => {
   const path = to_path(cslug, aslug)
-  const res: Response = await fetcher(path, false)
+  const res: Response = await fetcher(Article[])(path, false)
   if (res.status === 404) {
     return {
       notFound: true,
     }
   }
 
-  const a: Article = await res.json()
+  const a = await res.json()
   return {
     props:{
       path: path,
