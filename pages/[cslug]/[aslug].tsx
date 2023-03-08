@@ -7,8 +7,8 @@ import mdItContainer from 'markdown-it-container'
 import Prism from 'prismjs'
 import { parse as shellSplit } from 'shell-quote'
 
-import { fetcher } from '@/middlewares/utils'
-import type { Article } from '@/middlewares/models'
+import { fetcher } from '@/libs/utils'
+import type { Article } from '@/libs/models'
 
 
 
@@ -62,7 +62,7 @@ function cusmizeMarkdownIt(md: MarkdownIt) {
           if (icon) {
             opening += `<i class="mdi mdi-18px mdi-${icon}"></i> `
           }
-          opening += `${md.utils.escapeHtml(title)}</p></div>`
+          opening += `${md.utils.escapeHtml(String(title))}</p></div>`
         }
         return opening + `<div class="message-body">`
       } else {

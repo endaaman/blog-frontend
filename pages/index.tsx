@@ -1,8 +1,8 @@
 import type { NextPage , GetStaticProps } from 'next'
 import Link from 'next/link'
 import useSWR, { SWRConfig } from 'swr'
-import { fetcher } from '@/middlewares/utils'
-import type { Category, Article } from '@/middlewares/models'
+import { fetcher } from '@/libs/utils'
+import type { Category, Article } from '@/libs/models'
 import { plainToClass } from 'class-transformer'
 
 
