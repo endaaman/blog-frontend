@@ -1,4 +1,5 @@
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
+import Sidebar from '@/components/sidebar'
 
 type Props = {}
 
@@ -13,6 +14,7 @@ class Document extends NextDocument<Props> {
           <link rel="apple-touch-icon" href={'/logo.png'} />
         </Head>
         <body>
+          <Sidebar />
           <Main />
           <NextScript />
         </body>
