@@ -1,0 +1,237 @@
+@import "./variables.scss";
+
+.container {
+  margin: 0 auto;
+  max-width: 786px;
+}
+
+.mdContent {
+  *:first-child {
+    margin-top: 0px; /* delete margin for parent is flex */
+  }
+
+  @mixin hr {
+    border-bottom: dotted 1px $border;
+  }
+
+  h2 {
+    margin: 48px 0 24px;
+    padding: 8px 0;
+    font-size: $size-4;
+    line-height: 1.5;
+    @media screen and (max-width: $breakpoint) {
+      font-size: $size-5;
+    }
+    font-weight: bold;
+
+    @include hr
+  }
+
+  hr {
+    background: none;
+    margin: 32px 0;
+    @include hr;
+  }
+
+  h3, h4 {
+    margin: 48px 0 24px;
+    font-weight: bold;
+    font-size: $size-5;
+    // @media screen and (max-width: $breakpoint) {
+    //   margin-bottom: 32px;
+    //   font-size: $size-5;
+    // }
+  }
+
+  h2 + h3 {
+    margin-top: 16px;
+  }
+
+  & > p {
+    font-size: $size-6;
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+
+  ul, ol {
+    margin: 24px 0 24px 16px;
+    li {
+      line-height: 1.5;
+      margin-bottom: 8px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  li {
+    ul, ol {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+  }
+
+  table {
+    width: 100%;
+    margin: 32px 0;
+    /* display: inline-block; */
+    td, th {
+      padding: 8px;
+      font-size: 14px;
+      @media screen and (max-width: $breakpoint) {
+        padding: 8px 4px;
+      }
+    }
+    &.bordered {
+      td, th {
+        border-width: 1px;
+      }
+      tr {
+        &:last-child {
+          td, th {
+            border-bottom-width: 1px
+          }
+        }
+      }
+    }
+    &.no-bordered {
+      margin: 0 -8px;
+      td, th, tr {
+        border: 0;
+      }
+    }
+    &.compact {
+      width: auto;
+    }
+  }
+
+  dl {
+    margin: 24px 0;
+    // TODO: use flex
+    overflow: hidden;
+    dt {
+      font-weight: bold;
+    }
+    dd {
+      margin: 0 0 12px 24px;
+    }
+    p {
+      margin: 0 0 12px;
+    }
+  }
+
+  pre {
+    margin: 32px 0;
+    padding: 8px 8px;
+    max-height: 600px;
+    overflow-y: auto;
+    @media screen and (max-width: $breakpoint) {
+      padding: 4px 8px;
+    }
+    background-color: $white-bis;
+    &.hljs {
+      position: relative;
+      padding-top: 24px;
+      &:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        content: attr(data-filename)"";
+        font-family: $family-monospace;
+        font-style: italic;
+        font-size: 12px;
+        line-height: 12px;
+        color: $grey-dark;
+      }
+    }
+  }
+
+  blockquote {
+    position: relative;
+    margin: 24px 0;
+    padding: 24px 64px 24px 48px;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    &:before {
+      position: absolute;
+      top: 0px;
+      left: 8px;
+      font-family: "Material Design Icons";
+      content: "\F756";
+      font-size: 32px;
+      color: $border;
+    }
+    &:after {
+      position: absolute;
+      bottom: 0px;
+      right: 24px;
+      font-family: "Material Design Icons";
+      content: "\F27E";
+      font-size: 32px;
+      color: $border;
+    }
+    cite {
+      color: $grey;
+      order: 1;
+      text-align: right;
+      padding-top: 8px;
+      padding-right: 8px;
+      /* margin-top: 16px; */
+    }
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .message {
+    margin: 32px 0;
+  }
+
+  .markdown-image {
+    cursor: zoom-in;
+  }
+
+  .video-container {
+    max-width: 100%;
+    width: 640px;
+  }
+
+  .youtube-container {
+    max-width: 100%;
+    iframe {
+      max-width: 100%;
+    }
+  }
+
+  figure {
+    display: inline-block;
+    margin: 16px 0;
+    .figure-inner {
+      & > p {
+        margin-bottom: 0px;
+      }
+      display: flex;
+      flex-direction: column;
+      figcaption {
+        order: 1;
+        color: $dark;
+        text-align: center;
+        font-style: italic;
+        max-width: 100%;
+        word-break : break-all;
+      }
+    }
+    /* display: inline-block; */
+  }
+}
+
+p.no-content {
+  color: $grey;
+  font-style: italic;
+}

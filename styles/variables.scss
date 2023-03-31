@@ -1,0 +1,82 @@
+// @import "~bulma/sass/utilities/_all";
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// General
+// $primary: #FDABCD;
+$primary: #F090B0;
+$primary-inverted: #0F6F4F;
+$link: $primary;
+
+$body-background-color: $white;
+
+$border: $grey;
+$border-hover: $grey-light;
+
+$control-radius: 0;
+$input-border-color: $border;
+$input-hover-border-color: $border-hover;
+
+$button-border-color: $border;
+$button-hover-border-color: $border-hover;
+
+$text: $grey-darker;
+
+$weight-medium : 400;
+$weight-semibold : 400;
+$weight-bold : 700;
+
+$radius-small: 0;
+$radius: 0;
+$radius-large: 0;
+
+// Partial
+
+$menu-list-border-left: 2px solid $border;
+
+$pre: $black-ter;
+$pre-background: $white;
+
+$code: $black;
+$code-background: $white-ter;
+
+$hr-height: 2px;
+$hr-background-color: $grey-lighter;
+
+$family-sans-serif: Ubuntu, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', Meiryo, Arial, sans-serif;
+$family-monospace: 'Ubuntu Mono', consolas, 'Courier New', Courier, monospace;
+$family-primary: $family-sans-serif;
+$family-code: $family-monospace;
+$body-primary: $family-sans-serif;
+
+$loading-background: rgba(0, 0, 0, 0.5);
+
+$breakpoint: $tablet;
+// variables:
+// - $tablet
+// - $desktop
+// - $widescreen
+// - $fullhd
+
+
+// APP
+
+$common-horizontal-padding: 24px;
+$common-horizontal-narrow-padding: 16px;
+
+$header-title-font-size: 28px;
+$header-title-height: 28px;
+$header-sub-font-size: 12px;
+$header-sub-height: 16px;
+$header-vertical-padding: 16px;
+$header-margin: 8px;
+$header-height: $header-title-height + $header-margin + $header-sub-height + $header-vertical-padding * 2 ;
+
+// $sidebar-bg: $grey-darker;
+// $sidebar-bg: $grey-darker;
+$sidebar-bg: $black-ter;
+
+@import "~bulma/sass/base/animations.sass";
+@import "~bulma/sass/utilities/derived-variables.sass";
+@import "~bulma/sass/utilities/mixins.sass";
+@import "~bulma/sass/utilities/controls.sass";

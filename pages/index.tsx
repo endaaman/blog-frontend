@@ -7,7 +7,7 @@ import { plainToClass } from 'class-transformer'
 
 
 export const getStaticProps = async (params) => {
-  const articles = await fetcher('/articles')
+  const articles: Article[] = await fetcher('/articles')
   return {
     props:{
       fallback: {

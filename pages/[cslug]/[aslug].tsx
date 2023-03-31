@@ -10,11 +10,12 @@ import { parse as shellSplit } from 'shell-quote'
 import { fetcher } from '@/libs/utils'
 import { Article } from '@/libs/models'
 
+import styles from '@/styles/article.module.scss'
 
 
 
 export const getStaticPaths = async () => {
-  const aa: Article[] = await fetcher(Article[])('/articles')
+  const aa: Article[] = await fetcher('/articles')
   return {
     paths: aa.map((a) => `/${a.category.slug}/${a.slug}`),
     fallback: 'blocking',
@@ -27,7 +28,7 @@ function to_path(cslug:string, aslug:string) {
 
 export const getStaticProps = async ({ params:{ cslug, aslug } }) => {
   const path = to_path(cslug, aslug)
-  const res: Response = await fetcher(Article[])(path, false)
+  const res: Response = await fetcher(path, false)
   if (res.status === 404) {
     return {
       notFound: true,
@@ -94,11 +95,16 @@ function ArticleComponent({cslug, aslug}) {
   const innerHtml = md.render(article.body)
 
   return (
-    <div>
+    <div className={styles.container}>
       <hr />
       <Link href={router.asPath} onClick={updateArticle}><h1>{article.title}</h1></Link>
       <hr />
-      <div dangerouslySetInnerHTML={{ __html: innerHtml }}></div>
+
+      <div
+        className={styles.mdContent}
+        dangerouslySetInnerHTML={{ __html: innerHtml }}>
+      </div>
+
     </div>
   )
 }
