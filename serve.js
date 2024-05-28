@@ -7,11 +7,11 @@ import { handler } from './build/handler.js'
 const app = express()
 
 const proxy = createProxyMiddleware({
-  target: process.env.PUBLIC_UPSTREAM_URL_BASE,
+  target: process.env.UPSTREAM_HOST,
   changeOrigin: true,
 })
 
-console.log(`PROXY TO: "${process.env.PUBLIC_UPSTREAM_URL_BASE}"`, )
+console.log(`PROXY TO: "${process.env.UPSTREAM_HOST}"`, )
 
 const port = process.env.PORT || 8000
 

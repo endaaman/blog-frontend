@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 RUN npm run build
 
-ENV PUBLIC_UPSTREAM_URL_BASE http://blog-backend:3000
+ENV UPSTREAM_HOST blog-backend
 
 EXPOSE 8000
 
