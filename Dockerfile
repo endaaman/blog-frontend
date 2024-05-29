@@ -1,4 +1,7 @@
-FROM node:20-slim
+FROM node:22-slim
+
+RUN apt update
+RUN apt-get install -y nginx-extras supervisor
 
 ENV TZ Asia/Tokyo
 RUN npm install -g pnpm
@@ -8,10 +11,13 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+COPY confs/nginx.con /etc/nginx/sites-enabled/
+COPY confs/supervisor.conf /etc/supervisor/conf.d/
+
 COPY . .
 RUN npm run build
 
-ENV UPSTREAM_HOST blog-backend
+ENV BACKEND_HOST blog-backend
 
 EXPOSE 8000
 
