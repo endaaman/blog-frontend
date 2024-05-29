@@ -19,6 +19,5 @@ RUN npm run build
 
 ENV BACKEND_HOST blog-backend
 
-EXPOSE 8000
-
-CMD ["npm", "run", "serve"]
+EXPOSE 80 443
+CMD ["/usr/bin/supervisord"]
