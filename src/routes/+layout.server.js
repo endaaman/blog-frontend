@@ -1,6 +1,3 @@
-// import { BACKEND_HOST, PATH } from '$env/static/private'
-// BACKEND_HOST = BACKEND_HOST || 'localhost:3000'
-
 const BACKEND_HOST = process.env.BACKEND_HOST || 'localhost:3000'
 
 export async function load({ url }) {

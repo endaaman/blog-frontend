@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const BACKEND_HOST = process.env.BACKEND_HOST || 'localhost'
+const BACKEND_HOST = process.env.BACKEND_HOST || 'localhost:3000'
 const PORT = 8000
 
 const app = express()
@@ -16,11 +16,11 @@ const proxy = createProxyMiddleware({
   changeOrigin: true,
 })
 
-console.log(`Proxy to ${BACKEND_HOST}`)
+console.log(`Proxy to http://${BACKEND_HOST}`)
 
 app.use('/api/*', proxy)
-// app.use('/static/*', proxy)
 app.use('/static', express.static('static'))
+app.use(handler)
 
 app.listen(PORT, () => {
   console.log(`start server on http://localhost:${PORT}`)
