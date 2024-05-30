@@ -9,8 +9,8 @@
 
   let query = null
 
-
   $: filteredArticles = $articles.filter((a) => {
+    query = null
     if (a.category.hidden) {
       return false
     }
