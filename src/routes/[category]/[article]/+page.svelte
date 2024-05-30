@@ -19,36 +19,36 @@
   })
 </script>
 
-<style>
-.link {
-  margin-right: 8px;
-}
-</style>
+<p class="my-6">
+  <a href="/" class="link">Top</a>
+</p>
 
-<p><a href="/">Top</a></p>
+<h1 class="text-xl my-6">
+  <a href="/{article.category.slug}/{article.slug}" class="link">{ article.title }</a>
+</h1>
 
-<h1>{ article.title }</h1>
-
-<table>
-  <tr>
-    <th>Category</th>
-    <td>
-      <a href="/?category={article.category.slug}">{ article.category.label }</a>
-    </td>
-  </tr>
-  <tr>
-    <th>Tags</th>
-    <td>
-      {#if article.tags.length > 0}
-        {#each article.tags as tag}
-          <a href="/?tag={tag.name}" class="link">{tag.name}</a>
-        {/each}
-      {:else}
-        No tags
-      {/if}
-    </td>
-  </tr>
-</table>
+<div class=" my-8 overflow-x-auto w-full border border-primary">
+  <table class="table table-auto">
+    <tr>
+      <th class="w-24">Category</th>
+      <td>
+        <a href="/?category={article.category.slug}" class="link whitespace-nowrap">{article.category.label}</a>
+      </td>
+    </tr>
+    <tr>
+      <th>Tags</th>
+      <td>
+        {#if article.tags.length > 0}
+          {#each article.tags as tag}
+            <a href="/?tag={tag.name}" class="link mr-2 whitespace-nowrap">{tag.name}({tag.count})</a>
+          {/each}
+        {:else}
+          No tags
+        {/if}
+      </td>
+    </tr>
+  </table>
+</div>
 
 <Markdown source={article.body}></Markdown>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->

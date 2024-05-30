@@ -18,7 +18,12 @@
   setContext('tags', tt)
 </script>
 
-<slot></slot>
+<div class="mx-auto pb-8 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+  <slot></slot>
+</div>
 
 <hr>
-<p>©2024 endaaman.com</p>
+
+<div class="mx-auto my-8 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+  <p>©2024 endaaman.com</p>
+</div>

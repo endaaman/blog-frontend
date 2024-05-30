@@ -7,21 +7,27 @@
   const categories = getContext('categories')
   const tags = getContext('tags')
 
+  let query = null
+
 
   $: filteredArticles = $articles.filter((a) => {
     if (a.category.hidden) {
       return false
     }
     const searchParams = browser && $page.url.searchParams
+    let q
     if (searchParams) {
-      if (searchParams.get('tag')) {
-        if (!a.tags.find((t) => t.name == searchParams.get('tag') )) {
+      q = searchParams.get('tag')
+      if (q) {
+        query = `tag: "${q}"`
+        if (!a.tags.find((t) => t.name == q)) {
           return false
         }
       }
-
-      if (searchParams.get('category')) {
-        if (a.category.slug !== searchParams.get('category')) {
+      q = searchParams.get('category')
+      if (q) {
+        query = `category: "${q}"`
+        if (a.category.slug !== q) {
           return false
         }
       }
@@ -31,37 +37,41 @@
 
 </script>
 
-<style>
-.link {
-  margin-right: 8px;
-}
-</style>
+<h1 class="text-xl my-6">
+  <a href="/">endaaman.com</a>
+</h1>
 
-<h1><a href="/">endaaman.com</a></h1>
+<div class="my-6 overflow-x-auto w-full border border-primary">
+  <table class="table table-auto">
+    <tr>
+      <th class="w-24">Category</th>
+      <td>
+        {#each $categories as category}
+          {#if !category.hidden}
+            <a href="/?category={category.slug}" class="link mr-2 whitespace-nowrap">{category.label}</a>
+          {/if}
+        {/each}
+      </td>
+    </tr>
+    <tr>
+      <th class="">Tags</th>
+      <td>
+        {#each $tags as tag}
+          <a href="/?tag={tag.name}" class="link mr-2 whitespace-nowrap">{tag.name}({tag.count})</a>
+        {/each}
+      </td>
+    </tr>
+  </table>
+</div>
 
-<table>
-  <tr>
-    <th>Category</th>
-    <td>
-      {#each $categories as category}
-        {#if !category.hidden}
-          <a href="/?category={category.slug}" class="link">{category.label}</a>
-        {/if}
-      {/each}
-    </td>
-  </tr>
-  <tr>
-    <th>Tags</th>
-    <td>
-      {#each $tags as tag}
-        <a href="/?tag={tag.name}" class="link">{tag.name}({tag.count})</a>
-      {/each}
-    </td>
-  </tr>
-</table>
+{#if query}
+  <p class="my-4 text-secondary">{query} - {filteredArticles.length} articles found</p>
+{/if}
 
-<ul>
+<ul class="mt-6">
   {#each filteredArticles as a}
-    <li><a href="/{a.category.slug}/{a.slug}">{ a.title }</a></li>
+    <li class="my-2">
+      <a class="link" href="/{a.category.slug}/{a.slug}">{ a.title }</a>
+    </li>
   {/each}
 </ul>
