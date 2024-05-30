@@ -8,6 +8,15 @@ export default {
     require('daisyui'),
   ],
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: [
+      // 'corporate',
+      // 'light',
+      // 'dark',
+      // 'cupcake',
+      'emerald',
+      // 'synthwave',
+      // 'corporate',
+      // 'winter',
+    ]
   },
 }

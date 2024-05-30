@@ -23,11 +23,13 @@
   <a href="/" class="link">Top</a>
 </p>
 
+{#if article}
+
 <h1 class="text-xl my-6">
   <a href="/{article.category.slug}/{article.slug}" class="link">{ article.title }</a>
 </h1>
 
-<div class=" my-8 overflow-x-auto w-full border border-primary">
+<div class=" my-8 overflow-x-auto w-full border border-secondary">
   <table class="table table-auto">
     <tr>
       <th class="w-24">Category</th>
@@ -52,3 +54,5 @@
 
 <Markdown source={article.body}></Markdown>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
+
+{/if}

@@ -41,7 +41,7 @@
   <a href="/">endaaman.com</a>
 </h1>
 
-<div class="my-6 overflow-x-auto w-full border border-primary">
+<div class="my-6 overflow-x-auto w-full border border-secondary">
   <table class="table table-auto">
     <tr>
       <th class="w-24">Category</th>

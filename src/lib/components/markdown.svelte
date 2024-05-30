@@ -16,7 +16,8 @@
   import "prismjs/components/prism-bash"
 
   import 'katex/dist/katex.min.css'
-  import 'prismjs/themes/prism.min.css'
+  // import 'prismjs/themes/prism.min.css'
+  import "prism-themes/themes/prism-material-dark.min.css"
   import 'markdown-it-github-alerts/styles/github-base.css'
   import 'markdown-it-github-alerts/styles/github-colors-light.css'
 
@@ -75,10 +76,9 @@
   })
 </script>
 
-<style lang="scss">
+<style lang="postcss">
   :global(.article-main pre) {
     position: relative;
-    border-radius: 0;
   }
   :global(.article-main pre[data-filename]::before) {
     position: absolute;
@@ -86,7 +86,14 @@
     top: 0px;
     padding: 2px 8px;
     background-color: #ddd;
+    color: #444;
     content: attr(data-filename);
+  }
+
+  :global(.article-main pre code), :global(.article-main pre) {
+    @apply text-sm md:text-base;
+    /* Use theme bg color */
+    background-color: oklch(var(--n));
   }
 </style>
 

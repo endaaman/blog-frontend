@@ -9,6 +9,9 @@ export default {
       out: 'build',
       precompress: false,
       envPrefix: ''
-    })
+    }),
+    files: {
+      assets: 'public',
+    }
   },
 }
