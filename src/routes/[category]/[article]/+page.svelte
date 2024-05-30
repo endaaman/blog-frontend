@@ -52,6 +52,3 @@
 
 <Markdown source={article.body}></Markdown>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
-
-<hr>
-<p>©2024 endaaman.com</p>

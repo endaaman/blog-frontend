@@ -9,16 +9,21 @@
 
 
   $: filteredArticles = $articles.filter((a) => {
+    if (a.category.hidden) {
+      return false
+    }
     const searchParams = browser && $page.url.searchParams
     if (searchParams) {
       if (searchParams.get('tag')) {
-        if (!a.tags.find((t) => t.name == data.tag )) {
+        if (!a.tags.find((t) => t.name == searchParams.get('tag') )) {
           return false
         }
       }
 
       if (searchParams.get('category')) {
-
+        if (a.category.slug !== searchParams.get('category')) {
+          return false
+        }
       }
     }
     return true
@@ -39,7 +44,9 @@
     <th>Category</th>
     <td>
       {#each $categories as category}
-        <a href="/?category={category.slug}" class="link">{category.label}</a>
+        {#if !category.hidden}
+          <a href="/?category={category.slug}" class="link">{category.label}</a>
+        {/if}
       {/each}
     </td>
   </tr>

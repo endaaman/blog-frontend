@@ -17,7 +17,7 @@ COPY confs/supervisor.conf /etc/supervisor/conf.d/
 COPY . .
 RUN npm run build
 
-ENV BACKEND_HOST blog-backend
+ENV BACKEND_HOST blog-backend:3000
 
 EXPOSE 80 443
 CMD ["/usr/bin/supervisord"]

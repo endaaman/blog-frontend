@@ -19,8 +19,8 @@ const proxy = createProxyMiddleware({
 console.log(`Proxy to ${BACKEND_HOST}`)
 
 app.use('/api/*', proxy)
-app.use('/static/*', proxy)
-app.use(handler)
+// app.use('/static/*', proxy)
+app.use('/static', express.static('static'))
 
 app.listen(PORT, () => {
   console.log(`start server on http://localhost:${PORT}`)
