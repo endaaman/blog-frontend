@@ -15,9 +15,6 @@
   const tt = writable()
   $tt = data.tags
   setContext('tags', tt)
-
-  console.log($tt)
-  console.log($categories)
 </script>
 
 <slot></slot>

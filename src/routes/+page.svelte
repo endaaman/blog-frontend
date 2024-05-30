@@ -1,26 +1,26 @@
 <script>
   import { getContext } from 'svelte'
+  import { page } from '$app/stores'
+  import { browser } from "$app/environment"
 
   const articles = getContext('articles')
   const categories = getContext('categories')
   const tags = getContext('tags')
 
-  export let data
 
   $: filteredArticles = $articles.filter((a) => {
-    if (data.tag) {
-      if (!a.tags.find((t) => t.name == data.tag )) {
-        console.log(a.title)
-        return false
+    const searchParams = browser && $page.url.searchParams
+    if (searchParams) {
+      if (searchParams.get('tag')) {
+        if (!a.tags.find((t) => t.name == data.tag )) {
+          return false
+        }
+      }
+
+      if (searchParams.get('category')) {
+
       }
     }
-
-    if (data.category) {
-      if (a.category.slug != data.category) {
-        return false
-      }
-    }
-
     return true
   })
 

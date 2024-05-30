@@ -11,7 +11,7 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-COPY confs/nginx.con /etc/nginx/sites-enabled/
+COPY confs/nginx.conf /etc/nginx/sites-enabled/
 COPY confs/supervisor.conf /etc/supervisor/conf.d/
 
 COPY . .

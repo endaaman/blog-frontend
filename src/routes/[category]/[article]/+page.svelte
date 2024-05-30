@@ -9,7 +9,7 @@
   const category_slug = $page.params.category
   const article_slug = $page.params.article
 
-  const article = $articles.find((a, i) => {
+  const article = $articles.find((a) => {
     if (a.category.slug === category_slug) {
       if (a.slug === article_slug) {
         return a
@@ -25,7 +25,7 @@
 }
 </style>
 
-<a href="/">Top</a>
+<p><a href="/">Top</a></p>
 
 <h1>{ article.title }</h1>
 
