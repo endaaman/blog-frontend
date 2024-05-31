@@ -19,44 +19,46 @@
   })
 </script>
 
-<p class="my-6">
-  <a href="/" class="link">Top</a>
+<svelte:head>
+  <title>endaaman.com - {article.title}</title>
+</svelte:head>
+
+<p class="mt-6 mb-4">
+  <a href="/" class="hover:text-secondary">Top</a>
 </p>
 
 {#if article}
 
-<h1 class="text-xl mt-6 mb-4">
-  <a href="/{article.category.slug}/{article.slug}" class="link">{ article.title }</a>
+<div class="my-2 flex gap-4 justify-middle">
+  <p>{ article.date }</p>
+  <a href="/?category={article.category.slug}">
+    <span class="badge hover:badge-secondary text-xs">{article.category.label}</span>
+  </a>
+</div>
+
+<h1 class="text-xl mt-2">
+  <a href="/{article.category.slug}/{article.slug}" class="hover:text-secondary">{ article.title }</a>
 </h1>
 
 {#if article}
-  <p class="my-4">{ article.digest }</p>
+  <p class="my-2 text-sm">{ article.digest }</p>
 {/if}
 
-<div class=" my-4 overflow-x-auto w-full border border-secondary">
-  <table class="table table-auto">
-    <tr>
-      <th class="w-24">Category</th>
-      <td>
-        <a href="/?category={article.category.slug}" class="link whitespace-nowrap">{article.category.label}</a>
-      </td>
-    </tr>
-    <tr>
-      <th>Tags</th>
-      <td>
-        {#if article.tags.length > 0}
-          {#each article.tags as tag}
-            <a href="/?tag={tag.name}" class="link mr-2 whitespace-nowrap">{tag.name}({tag.count})</a>
-          {/each}
-        {:else}
-          No tags
-        {/if}
-      </td>
-    </tr>
-  </table>
+<div class="my-2 flex flex-flow space-x-2">
+  {#if article.tags.length > 0}
+    {#each article.tags as tag}
+      <a href="/?tag={tag}">
+        <span class="badge hover:badge-secondary text-xs">{tag}</span>
+      </a>
+    {/each}
+  {:else}
+    <p class="text-sm text-base-300">No tags</p>
+  {/if}
 </div>
 
-<Markdown source={article.body}></Markdown>
+<div class="my-6">
+  <Markdown source={article.body}></Markdown>
+</div>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
 
 {/if}
