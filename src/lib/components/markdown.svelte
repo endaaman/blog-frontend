@@ -73,6 +73,14 @@
         Prism.highlightElement(e)
       }
     })
+
+    element.querySelectorAll('table').forEach((table) => {
+      const wrapper = document.createElement('div')
+      wrapper.className = "table-wrapper"
+      const parent = table.parentNode
+      parent.replaceChild(wrapper, table)
+      wrapper.appendChild(table)
+    })
   })
 </script>
 
@@ -94,6 +102,27 @@
     @apply text-sm md:text-base;
     /* Use theme bg color */
     background-color: oklch(var(--n));
+  }
+
+  :global(.article-main .table-wrapper) {
+    /* @apply overflow-x-auto; */
+    @apply overflow-x-auto
+  }
+
+  :global(.article-main img) {
+    @apply min-w-[256px];
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  :global(.article-main img~em) {
+    display: block;
+    margin: -1.5rem auto 0;
+    line-height: 1.3;
+    text-align: center;
+    color: #93a5b1;
+    font-size: .95rem;
   }
 </style>
 

@@ -25,11 +25,15 @@
 
 {#if article}
 
-<h1 class="text-xl my-6">
+<h1 class="text-xl mt-6 mb-4">
   <a href="/{article.category.slug}/{article.slug}" class="link">{ article.title }</a>
 </h1>
 
-<div class=" my-8 overflow-x-auto w-full border border-secondary">
+{#if article}
+  <p class="my-4">{ article.digest }</p>
+{/if}
+
+<div class=" my-4 overflow-x-auto w-full border border-secondary">
   <table class="table table-auto">
     <tr>
       <th class="w-24">Category</th>
