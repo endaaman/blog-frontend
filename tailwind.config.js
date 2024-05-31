@@ -9,13 +9,12 @@ export default {
   ],
   daisyui: {
     themes: [
-      // 'corporate',
       // 'light',
       // 'dark',
       // 'cupcake',
-      'emerald',
       // 'synthwave',
       // 'corporate',
+      'emerald',
       // 'winter',
     ]
   },

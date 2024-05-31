@@ -124,10 +124,15 @@
     color: #93a5b1;
     font-size: .95rem;
   }
+
+  :global(.article-main .katex-display) {
+    /* overflow: auto hidden */
+    overflow-x: auto;
+  }
 </style>
 
 <div>
-  <article class="article-main prose prose-md min-w-full" bind:this={ element }>
+  <article class="article-main prose prose-md  max-w-none" bind:this={ element }>
     {@html html}
   </article>
 </div>

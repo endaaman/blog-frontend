@@ -59,6 +59,7 @@
         }
       })
     })
+    curatedTags.sort((a,b)=> b.count-a.count || a.name.localeCompare(b.name))
   }
 
   function withQuery(q) {
@@ -78,9 +79,9 @@
   <title>endaaman.com</title>
 </svelte:head>
 
-<h1 class="text-xl my-6">
+<p class="text-lg my-6">
   <a href="/" class="hover:text-secondary">endaaman.com</a>
-</h1>
+</p>
 
 <h2 class="mt-2 text-sm">Category</h2>
 <div class="flex flex-wrap gap-x-2 gap-y-1">
@@ -98,20 +99,23 @@
 </div>
 
 <h2 class="mt-2 text-sm">Tag</h2>
-<div class="flex flex-wrap gap-x-2 gap-y-1">
-  {#each curatedTags as tag}
-    <a href={ tagQuery !== tag.name ? withQuery({tag: tag.name}) : withQuery({tag: null}) } class="">
-      {#if tagQuery !== tag.name}
-        <span class="badge hover:badge-secondary text-xs">{tag.name} ({tag.count})</span>
-      {:else}
-        <span class="badge badge-secondary hover:badge-outline text-xs">{tag.name} ({tag.count})</span>
-      {/if}
-    </a>
-  {/each}
+
+<div class="overflow-x-auto">
+  <div class="flex flex-wrap gap-x-2 gap-y-1 min-w-[720px] w-full">
+    {#each curatedTags as tag}
+      <a href={ tagQuery !== tag.name ? withQuery({tag: tag.name}) : withQuery({tag: null}) } class="">
+        {#if tagQuery !== tag.name}
+          <span class="badge hover:badge-secondary text-xs">{tag.name} ({tag.count})</span>
+        {:else}
+          <span class="badge badge-secondary hover:badge-outline text-xs">{tag.name} ({tag.count})</span>
+        {/if}
+      </a>
+    {/each}
+  </div>
 </div>
 
 {#if filtering}
-  <p class="my-4 text-secondary">{aa.length} articles found.</p>
+  <p class="my-4 text-secondary text-sm">{aa.length} articles found.</p>
 {/if}
 
 <div class="mt-4">
@@ -120,9 +124,9 @@
     {@const lastYear = i >= 1 ? aa[i-1].date.slice(0, 4) : null }
     {@const showYear = i == 0 || curYear !== lastYear}
     {#if showYear}
-    <div class="mt-6 mb-2 badge badge-ghost">{ curYear }年</div>
+    <div class="mt-6 mb-3 badge badge-ghost">{ curYear }年</div>
     {/if}
-    <div class="my-2">
+    <div class="my-3">
       <a class="hover:text-secondary" href="/{a.category.slug}/{a.slug}">{ a.title }</a>
     </div>
   {/each}

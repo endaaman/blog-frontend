@@ -18,7 +18,8 @@
   setContext('tags', tt)
 </script>
 
-<div class="mx-auto pb-8 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+
+<div class="mx-auto px-4 lg:w-[960px] md:w-[720px] sm:w-full md:px-0">
   <slot></slot>
 </div>
 
