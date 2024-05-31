@@ -61,15 +61,14 @@
     })
   }
 
-
-
-
-  function withQuery(key, value) {
+  function withQuery(q) {
     const url = new URL($page.url)
-    if (value) {
-      url.searchParams.set(key, value)
-    } else {
-      url.searchParams.delete(key)
+    for (const [key, value] of Object.entries(q)) {
+      if (value) {
+        url.searchParams.set(key, value)
+      } else {
+        url.searchParams.delete(key)
+      }
     }
     return url.toString()
   }
@@ -87,7 +86,7 @@
 <div class="flex flex-wrap gap-x-2 gap-y-1">
   {#each $categories as c}
     {#if !c.hidden}
-      <a href={ categoryQuery !== c.slug ? withQuery('category', c.slug) : withQuery('category', null)  }>
+      <a href={ categoryQuery !== c.slug ? withQuery({category: c.slug, tag: null}) : withQuery({category: null})  }>
         {#if categoryQuery !== c.slug}
           <span class="badge hover:badge-secondary text-xs">{c.label}</span>
         {:else}
@@ -101,7 +100,7 @@
 <h2 class="mt-2 text-sm">Tag</h2>
 <div class="flex flex-wrap gap-x-2 gap-y-1">
   {#each curatedTags as tag}
-    <a href={ tagQuery !== tag.name ? withQuery('tag', tag.name) : withQuery('tag', null) } class="">
+    <a href={ tagQuery !== tag.name ? withQuery({tag: tag.name}) : withQuery({tag: null}) } class="">
       {#if tagQuery !== tag.name}
         <span class="badge hover:badge-secondary text-xs">{tag.name} ({tag.count})</span>
       {:else}
