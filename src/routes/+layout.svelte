@@ -25,6 +25,6 @@
 
 <hr>
 
-<div class="mx-auto my-8 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-  <p class="text-base-300">©2024 endaaman.com</p>
+<div class="mx-auto px-4 lg:w-[960px] md:w-[720px] sm:w-full md:px-0">
+  <p class="my-6 text-base-300">©2024 endaaman.com</p>
 </div>
