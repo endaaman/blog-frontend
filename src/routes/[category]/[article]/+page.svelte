@@ -1,22 +1,5 @@
 <script>
-  import { page } from '$app/stores'
-  import { error } from '@sveltejs/kit'
-  import { getContext } from 'svelte'
-
   import Markdown from '$lib/components/markdown.svelte';
-
-  // const articles = getContext('articles')
-  // const category_slug = $page.params.category
-  // const article_slug = $page.params.article
-  // $: article = $articles.find((a) => {
-  //   if (a.category.slug === category_slug) {
-  //     if (a.slug === article_slug) {
-  //       return a
-  //     }
-  //   }
-  //   return null
-  // })
-
   export let data
   const article = data.article
 </script>
@@ -59,7 +42,7 @@
 </div>
 
 <div class="my-6">
-  <Markdown source={article.body}></Markdown>
+  <Markdown html={article.html}></Markdown>
 </div>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
 

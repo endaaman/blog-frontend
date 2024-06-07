@@ -7,6 +7,8 @@
   const categories = getContext('categories')
   const tags = getContext('tags')
 
+  const NO_TAG = 'タグなし'
+
   let filtering = false
   let tagQuery = null
   let categoryQuery = null
@@ -59,10 +61,15 @@
         }
       })
     })
-    curatedTags.sort((a,b)=> b.count-a.count || a.name.localeCompare(b.name))
+    curatedTags.sort((a,b)=> (
+        (a.name===NO_TAG ? 1 : 0) ||
+        (b.name===NO_TAG ? -1 : 0) ||
+        b.count-a.count ||
+        a.name.localeCompare(b.name)
+    ))
   }
 
-  function withQuery(q) {
+  function Q(q) {
     const url = new URL($page.url)
     for (const [key, value] of Object.entries(q)) {
       if (value) {
@@ -87,7 +94,7 @@
 <div class="flex flex-wrap gap-x-2 gap-y-1">
   {#each $categories as c}
     {#if !c.hidden}
-      <a href={ categoryQuery !== c.slug ? withQuery({category: c.slug, tag: null}) : withQuery({category: null})  }>
+      <a href={ categoryQuery === c.slug ? Q({category:null, tag:null}) : Q({category:c.slug, tag:null}) }>
         {#if categoryQuery !== c.slug}
           <span class="badge hover:badge-secondary text-xs">{c.label}</span>
         {:else}
@@ -103,7 +110,7 @@
 <div class="overflow-x-auto">
   <div class="flex flex-wrap gap-x-2 gap-y-1 max-md:w-[720px]">
     {#each curatedTags as tag}
-      <a href={ tagQuery !== tag.name ? withQuery({tag: tag.name}) : withQuery({tag: null}) } class="">
+      <a href={ tagQuery === tag.name ? Q({tag:null}) : Q({tag:tag.name}) } class="">
         {#if tagQuery !== tag.name}
           <span class="badge hover:badge-secondary text-xs">{tag.name} ({tag.count})</span>
         {:else}

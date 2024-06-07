@@ -1,10 +1,5 @@
 <script>
   import { onMount } from 'svelte'
-
-  import mdIt from 'markdown-it'
-  import mdItContainer from 'markdown-it-container'
-  import mdItAlerts from 'markdown-it-github-alerts'
-  import mdItKatex from '@traptitech/markdown-it-katex'
   import Prism from 'prismjs'
   import "prismjs/components/prism-python"
   import "prismjs/components/prism-json"
@@ -21,37 +16,13 @@
   import 'markdown-it-github-alerts/styles/github-base.css'
   import 'markdown-it-github-alerts/styles/github-colors-light.css'
 
-
-  export let source
   let element = null
-
-  const md = mdIt()
-  md.use(mdItKatex)
-  md.use(mdItAlerts)
-
-  // md.use(mdItContainer, 'note', {
-  //   validate: function(params) {
-  //     console.log(params, params.trim().match(/^!NOTE\s+(.*)$/))
-  //     return params.trim().match(/^!NOTE\s+(.*)$/)
-  //   },
-  //   render: function (tokens, idx) {
-  //     const m = tokens[idx].info.trim().match(/^!NOTE\s+(.*)$/);
-  //     if (tokens[idx].nesting === 1) {
-  //       return `<div class="note ${md.utils.escapeHtml(m[1])}">\n`;
-  //     } else {
-  //       return '</div>\n';
-  //     }
-  //   }
-  // });
-
-  const html = md.render(source)
-  // const html = '<strong style="color:red;">HELLO</strong>'
+  export let html
 
   onMount(()=> {
     element.querySelectorAll('pre > code').forEach((e) => {
       let isCode = false
       let lang = null
-      let filename = null
       e.classList.forEach((c) => {
         if (c === 'language-none') {
           return
@@ -131,11 +102,6 @@
   }
 </style>
 
-<div>
-  <article class="article-main prose prose-md  max-w-none" bind:this={ element }>
-    {@html html}
-  </article>
-</div>
-
-<!-- <hr> -->
-<!-- <pre>{ source }</pre> -->
+<article class="article-main prose prose-md  max-w-none" bind:this={ element }>
+  {@html html}
+</article>
