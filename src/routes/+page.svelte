@@ -48,7 +48,12 @@
     })
 
     curatedTags = []
-    aa.forEach((a) => {
+    $articles.forEach((a) => {
+      if (categoryQuery) {
+        if (a.category.slug !== categoryQuery) {
+          return
+        }
+      }
       a.tags.forEach((t) => {
         const tag = curatedTags.find((tag) => tag.name == t)
         if (tag) {
