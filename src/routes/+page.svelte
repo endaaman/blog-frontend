@@ -111,9 +111,9 @@
 </div>
 
 <h2 class="mt-2 text-sm">Tag</h2>
-
-<div class="overflow-x-auto">
-  <div class="flex flex-wrap gap-x-2 gap-y-1 max-md:w-[720px]">
+<!-- max-md:overflow-x-auto -->
+<div class="w-full max-md:max-h-[100px] max-md:overflow-x-auto">
+  <div class="flex flex-wrap gap-x-2 gap-y-1">
     {#each curatedTags as tag}
       <a href={ tagQuery === tag.name ? Q({tag:null}) : Q({tag:tag.name}) } class="">
         {#if tagQuery !== tag.name}

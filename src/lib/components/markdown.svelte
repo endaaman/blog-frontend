@@ -1,18 +1,18 @@
 <script>
   import { onMount } from 'svelte'
   import Prism from 'prismjs'
-  import "prismjs/components/prism-python"
-  import "prismjs/components/prism-json"
-  import "prismjs/components/prism-vim"
-  import "prismjs/components/prism-c"
-  import "prismjs/components/prism-cpp"
-  import "prismjs/components/prism-markdown"
-  import "prismjs/components/prism-lua"
-  import "prismjs/components/prism-bash"
+  import 'prismjs/components/prism-python'
+  import 'prismjs/components/prism-json'
+  import 'prismjs/components/prism-vim'
+  import 'prismjs/components/prism-c'
+  import 'prismjs/components/prism-cpp'
+  import 'prismjs/components/prism-markdown'
+  import 'prismjs/components/prism-lua'
+  import 'prismjs/components/prism-bash'
 
   import 'katex/dist/katex.min.css'
   // import 'prismjs/themes/prism.min.css'
-  import "prism-themes/themes/prism-material-dark.min.css"
+  import 'prism-themes/themes/prism-material-dark.min.css'
   import 'markdown-it-github-alerts/styles/github-base.css'
   import 'markdown-it-github-alerts/styles/github-colors-light.css'
 
@@ -23,6 +23,7 @@
     element.querySelectorAll('pre > code').forEach((e) => {
       let isCode = false
       let lang = null
+      let filename = null
       e.classList.forEach((c) => {
         if (c === 'language-none') {
           return
@@ -35,7 +36,7 @@
         const langs = splitted[1].split(':')
         lang = langs[0]
         if (langs.length >= 2) {
-          e.parentElement.dataset.filename = langs[1]
+          filename = langs[1]
         }
         e.className = `language-${lang}`;
         return false
@@ -43,11 +44,22 @@
       if (isCode) {
         Prism.highlightElement(e)
       }
+
+      if (filename) {
+        // e.parentElement.dataset.filename = filename
+        // スクロールでずれるのでwrapするelementを差し込む
+        const parentElement = e.parentNode
+        const wrapper = document.createElement('div')
+        wrapper.className = 'pre-wrapper'
+        wrapper.dataset.filename = filename || lang
+        e.parentNode.parentNode.insertBefore(wrapper, e.parentNode)
+        wrapper.appendChild(e.parentNode)
+      }
     })
 
     element.querySelectorAll('table').forEach((table) => {
       const wrapper = document.createElement('div')
-      wrapper.className = "table-wrapper"
+      wrapper.className = 'table-wrapper'
       const parent = table.parentNode
       parent.replaceChild(wrapper, table)
       wrapper.appendChild(table)
@@ -56,10 +68,10 @@
 </script>
 
 <style lang="postcss">
-  :global(.article-main pre) {
+  :global(.article-main .pre-wrapper) {
     position: relative;
   }
-  :global(.article-main pre[data-filename]::before) {
+  :global(.article-main .pre-wrapper[data-filename]:after) {
     position: absolute;
     right: 0px;
     top: 0px;
