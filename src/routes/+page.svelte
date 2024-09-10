@@ -24,6 +24,9 @@
       if (a.category.hidden) {
         return false
       }
+      if (a.draft) {
+        return false
+      }
       const searchParams = browser && $page.url.searchParams
       let q
       if (searchParams) {
