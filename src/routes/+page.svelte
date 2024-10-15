@@ -11,10 +11,41 @@
 
   let filtering = false
   let tagQuery = null
+  let tagSortRuleIndex = 0
   let categoryQuery = null
 
   let aa = []
   let curatedTags = []
+  const tagSortRules = [
+    // {
+    //   icon: 'i-lucide-arrow-down-narrow-wide',
+    //   rule: 'ascend',
+    // },
+    {
+      icon: 'i-lucide-arrow-down-wide-narrow',
+      rule: 'descending',
+      func: (a,b) => (
+        b.count-a.count ||
+        a.name.localeCompare(b.name)
+      )
+    },
+    {
+      icon: 'i-lucide-arrow-down-a-z',
+      rule: 'az',
+      func: (a,b) => (
+        a.name.localeCompare(b.name) ||
+        b.count-a.count
+      )
+    },
+    // {
+    //   icon: 'i-lucide-arrow-down-z-a',
+    //   rule: 'za',
+    // }
+  ]
+
+  function toggleTagSortRule() {
+    tagSortRuleIndex = (tagSortRuleIndex+1) % tagSortRules.length
+  }
 
   $: {
     tagQuery = null
@@ -69,12 +100,13 @@
         }
       })
     })
-    curatedTags.sort((a,b)=> (
+    curatedTags.sort((a,b)=> {
+      return (
         (a.name===NO_TAG ? 1 : 0) ||
         (b.name===NO_TAG ? -1 : 0) ||
-        b.count-a.count ||
-        a.name.localeCompare(b.name)
-    ))
+        tagSortRules[tagSortRuleIndex].func(a,b)
+      )
+    })
   }
 
   function Q(q) {
@@ -94,11 +126,11 @@
   <title>endaaman.com</title>
 </svelte:head>
 
-<p class="text-lg my-6">
+<p class="text-xl my-6">
   <a href="/" class="hover:text-secondary">endaaman.com</a>
 </p>
 
-<h2 class="mt-2 text-sm">Category</h2>
+<h2 class="mt-2 text-md">Category</h2>
 <div class="flex flex-wrap gap-x-2 gap-y-1">
   {#each $categories as c}
     {#if !c.hidden}
@@ -113,7 +145,17 @@
   {/each}
 </div>
 
-<h2 class="mt-2 text-sm">Tag</h2>
+<div class="mt-2 flex items-center">
+  <h2 class="text-md">Tag</h2>
+  <!-- <div class="ml-2 badge hover:badge-outline items-center"> -->
+  <button class="ml-1 btn btn-primary btn-xs btn-ghost btn-circle" on:click={ toggleTagSortRule }>
+    <span class={tagSortRules[tagSortRuleIndex].icon}></span>
+    <!-- <span class="i-lucide-arrow-down-a-z"></span> -->
+    <!-- <span class="i-lucide-arrow-down-z-a"></span> -->
+    <!-- <span class="i-lucide-arrow-down-narrow-wide"></span> -->
+    <!-- <span class="i-lucide-arrow-down-wide-narrow"></span> -->
+  </button>
+</div>
 <!-- max-md:overflow-x-auto -->
 <div class="w-full max-md:max-h-[100px] max-md:overflow-x-auto">
   <div class="flex flex-wrap gap-x-2 gap-y-1">

@@ -10,6 +10,9 @@
 		"serve": "node serve.js"
 	},
 	"dependencies": {
+		"@egoist/tailwindcss-icons": "^1.8.1",
+		"@iconify-json/lucide": "^1.2.9",
+		"@iconify-json/mdi": "^1.2.1",
 		"@sveltejs/adapter-auto": "^3.2.1",
 		"@sveltejs/adapter-node": "^5.0.1",
 		"@sveltejs/adapter-static": "^3.0.1",

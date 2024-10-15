@@ -1,3 +1,5 @@
+const { iconsPlugin, getIconCollections } = require('@egoist/tailwindcss-icons')
+
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
@@ -6,6 +8,9 @@ export default {
   plugins: [
     require('@tailwindcss/typography'),
     require('daisyui'),
+    iconsPlugin({
+      collections: getIconCollections(['mdi', 'lucide']),
+    }),
   ],
   daisyui: {
     themes: [
