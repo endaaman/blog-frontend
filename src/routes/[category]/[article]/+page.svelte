@@ -6,6 +6,10 @@
 
 <svelte:head>
   <title>endaaman.com - {article.title}</title>
+  <meta name="description" content={article.digest} />
+  <meta property="og:title" content={article.title} />
+  <meta property="og:image" content={ article.image || "%sveltekit.assets%/favicon.png" } />
+  <meta property="og:description" content={article.digest} />
 </svelte:head>
 
 {#if article}

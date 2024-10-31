@@ -124,6 +124,11 @@
 
 <svelte:head>
   <title>endaaman.com</title>
+  <meta name="description" content="endaaman's homepage" />
+  <meta property="og:title" content="endaaman.com" />
+  <meta property="og:image" content="%sveltekit.assets%/favicon.png" />
+  <meta property="og:description" content="endaaman's homepage" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <h2 class="mt-2 text-md">Category</h2>
