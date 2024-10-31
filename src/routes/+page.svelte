@@ -1,7 +1,8 @@
 <script>
   import { getContext } from 'svelte'
   import { page } from '$app/stores'
-  import { browser } from "$app/environment"
+  import { browser } from '$app/environment'
+  import { base } from '$app/paths'
 
   const articles = getContext('articles')
   const categories = getContext('categories')
@@ -126,7 +127,7 @@
   <title>endaaman.com</title>
   <meta name="description" content="endaaman's homepage" />
   <meta property="og:title" content="endaaman.com" />
-  <meta property="og:image" content="%sveltekit.assets%/favicon.png" />
+  <meta property="og:image" content={`${base}/favicon.png`} />
   <meta property="og:description" content="endaaman's homepage" />
   <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
