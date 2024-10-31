@@ -1,6 +1,6 @@
 <script>
   import Markdown from '$lib/components/markdown.svelte';
-  import { base } from '$app/paths'
+  import { page } from '$app/stores'
 
   export let data
   const article = data.article
@@ -10,7 +10,7 @@
   <title>endaaman.com - {article.title}</title>
   <meta name="description" content={article.digest} />
   <meta property="og:title" content={article.title} />
-  <meta property="og:image" content={ article.image || `${base}/favicon.png` } />
+  <meta property="og:image" content={ article.image || `${$page.url.origin}/favicon.png` } />
   <meta property="og:description" content={article.digest} />
 </svelte:head>
 
