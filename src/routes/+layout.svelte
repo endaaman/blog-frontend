@@ -2,6 +2,7 @@
   import '../app.css';
   import { setContext } from 'svelte'
   import { writable } from 'svelte/store'
+  import Title from '$lib/components/title.svelte';
 
   export let data
 
@@ -20,6 +21,7 @@
 
 
 <div class="mx-auto px-4 lg:w-[960px] md:w-[720px] sm:w-full md:px-0">
+  <Title/>
   <slot></slot>
 </div>
 

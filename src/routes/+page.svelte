@@ -126,10 +126,6 @@
   <title>endaaman.com</title>
 </svelte:head>
 
-<p class="text-xl my-6">
-  <a href="/" class="hover:text-secondary">endaaman.com</a>
-</p>
-
 <h2 class="mt-2 text-md">Category</h2>
 <div class="flex flex-wrap gap-x-2 gap-y-1">
   {#each $categories as c}

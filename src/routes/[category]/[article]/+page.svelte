@@ -8,10 +8,6 @@
   <title>endaaman.com - {article.title}</title>
 </svelte:head>
 
-<p class="text-lg my-6">
-  <a href="/" class="hover:text-secondary">endaaman.com</a>
-</p>
-
 {#if article}
 
 <div class="my-2 flex gap-4 justify-middle">
