@@ -1,5 +1,5 @@
 <script>
-  import Markdown from '$lib/components/markdown.svelte';
+  import Markdown from '$lib/components/markdown.svelte'
   import { page } from '$app/stores'
 
   export let data

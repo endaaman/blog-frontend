@@ -1,8 +1,8 @@
 <script>
-  import '../app.css';
+  import '../app.css'
   import { setContext } from 'svelte'
   import { writable } from 'svelte/store'
-  import Title from '$lib/components/title.svelte';
+  import Title from '$lib/components/title.svelte'
 
   export let data
 

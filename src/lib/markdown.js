@@ -15,14 +15,14 @@ export function compile(source) {
   //     return params.trim().match(/^!NOTE\s+(.*)$/)
   //   },
   //   render: function (tokens, idx) {
-  //     const m = tokens[idx].info.trim().match(/^!NOTE\s+(.*)$/);
+  //     const m = tokens[idx].info.trim().match(/^!NOTE\s+(.*)$/)
   //     if (tokens[idx].nesting === 1) {
-  //       return `<div class="note ${md.utils.escapeHtml(m[1])}">\n`;
+  //       return `<div class="note ${md.utils.escapeHtml(m[1])}">\n`
   //     } else {
-  //       return '</div>\n';
+  //       return '</div>\n'
   //     }
   //   }
-  // });
+  // })
 
   return md.render(source)
 }
