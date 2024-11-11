@@ -7,8 +7,8 @@ export const handle = async ({ event, resolve }) => {
   if (path === '/') {
     response.headers.set(
       'Cache-Control',
-      // 1分キャッシュ、5分古いキャッシュ許容
-      'public, s-maxage=60, stale-while-revalidate=300'
+      // 10分キャッシュ、30分古いキャッシュ許容
+      'public, s-maxage=600, stale-while-revalidate=1800'
     )
   } else {
     response.headers.set(
