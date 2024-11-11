@@ -29,8 +29,5 @@ export async function load({ fetch, url, params }) {
   return {
     article,
     status: 200,
-    headers: {
-      'cache-control': 'max-age=0, s-maxage=3600',
-    },
   }
 }

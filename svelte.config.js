@@ -5,6 +5,7 @@ export default {
   preprocess: [vitePreprocess()],
   extensions: ['.svelte'],
 	kit: {
+    // preload: false,
     adapter: adapter({
       out: 'build',
       precompress: false,
