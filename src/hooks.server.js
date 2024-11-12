@@ -1,12 +1,18 @@
-/** @type {import('@sveltejs/kit').Handle} */
-export const handle = async ({ event, resolve }) => {
-  const response = await resolve(event)
 
-  const path = event.url.pathname
-  response.headers.set(
-    'Cache-Control',
-    // caching while 1 week
-    'public, s-maxage=2592000, stale-while-revalidate=2592000'
-  )
-  return response
+
+const BACKEND_HOST = process.env.BACKEND_HOST || 'localhost:3000'
+
+export async function handleFetch({ request, fetch }) {
+  const url = new URL(request.url)
+
+  if (url.pathname.startsWith('/api')) {
+    request = new Request(
+      `http://${BACKEND_HOST}${url.pathname}${url.search}`,
+      request
+    )
+    console.log('new req', request.url)
+  }
+  const headers = new Headers(request.headers)
+  headers.set('Cache-Control', 'no-cache')
+  return fetch(request)
 }

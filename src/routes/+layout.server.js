@@ -1,15 +1,11 @@
-import { error } from '@sveltejs/kit'
-import { API_BASE } from '$lib/config'
+// import { error } from '@sveltejs/kit'
+// import api from '$lib/api'
 
-export async function load({ fetch, url, params }) {
-  const response = await fetch(`${API_BASE}/api/data`)
-  const data = await response.json()
+// export async function load({ fetch, url, params }) {
+//   const data = await api(`data`).json()
 
-  return {
-    ...data,
-    status: 200,
-    headers: {
-      'cache-control': 'max-age=0, s-maxage=3600',
-    },
-  }
-}
+//   return {
+//     ...data,
+//     status: 200,
+//   }
+// }

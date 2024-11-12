@@ -1,5 +1,4 @@
 import { error } from '@sveltejs/kit'
-import { API_BASE } from '$lib/config'
 import { compile } from '$lib/markdown'
 
 
@@ -13,8 +12,7 @@ export async function load({ fetch, url, params }) {
       return
   }
 
-  const path = `/api/articles/${categorySlug}/${articleSlug}`
-  const res = await fetch(`${API_BASE}${path}`)
+  const res = await fetch(`/api/articles/${categorySlug}/${articleSlug}`)
   if (!res.ok) {
     if (res.status === 404) {
       error(404, {

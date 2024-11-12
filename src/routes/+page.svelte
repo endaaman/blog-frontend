@@ -1,11 +1,13 @@
 <script>
-  import { getContext } from 'svelte'
+  import '../app.css'
   import { page } from '$app/stores'
   import { browser } from '$app/environment'
 
-  const articles = getContext('articles')
-  const categories = getContext('categories')
-  const tags = getContext('tags')
+  export let data
+
+  const articles = data.articles
+  const categories = data.categories
+  const tags = data.tags
 
   const NO_TAG = 'タグなし'
 
@@ -50,7 +52,7 @@
   $: {
     tagQuery = null
     categoryQuery = null
-    aa = $articles.filter((a) => {
+    aa = articles.filter((a) => {
       filtering = false
       if (a.category.hidden) {
         return false
@@ -82,7 +84,7 @@
     })
 
     curatedTags = []
-    $articles.forEach((a) => {
+    articles.forEach((a) => {
       if (categoryQuery) {
         if (a.category.slug !== categoryQuery) {
           return
@@ -133,7 +135,7 @@
 
 <h2 class="mt-2 text-md">Category</h2>
 <div class="flex flex-wrap gap-x-2 gap-y-1">
-  {#each $categories as c}
+  {#each categories as c}
     {#if !c.hidden}
       <a href={ categoryQuery === c.slug ? Q({category:null, tag:null}) : Q({category:c.slug, tag:null}) }>
         {#if categoryQuery !== c.slug}
