@@ -123,6 +123,10 @@
     /* overflow: auto hidden */
     overflow-x: auto;
   }
+
+  :global(.article-main .markdown-alert) {
+    @apply bg-neutral-content;
+  }
 </style>
 
 <article class="article-main prose prose-md  max-w-none" bind:this={ element }>
