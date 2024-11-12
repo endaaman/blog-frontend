@@ -10,7 +10,6 @@ export async function handleFetch({ request, fetch }) {
       `http://${BACKEND_HOST}${url.pathname}${url.search}`,
       request
     )
-    console.log('new req', request.url)
   }
   const headers = new Headers(request.headers)
   headers.set('Cache-Control', 'no-cache')

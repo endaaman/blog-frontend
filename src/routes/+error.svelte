@@ -13,4 +13,6 @@
 <h1 class="my-4">{ $page.error.message }</h1>
 
 <p>Code: { $page.status }</p>
-<!-- <pre>{ JSON.stringify($page, 0, 2) }</pre> -->
+{#if $page.status !== 400}
+  <pre>{ JSON.stringify($page.error, 0, 2) }</pre>
+{/if}
