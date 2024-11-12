@@ -68,6 +68,17 @@
 </script>
 
 <style lang="postcss">
+  :global(.article-main h2) {
+    @apply border-b border-base-300 pb-2 mb-4;
+  }
+
+  :global(.article-main .footnote-backref) {
+    /* &#8617; が絵文字になるのを回避する */
+    font-family: sans-serif;
+    font-variant: none;
+    text-decoration: none;
+  }
+
   :global(.article-main .pre-wrapper) {
     position: relative;
   }
