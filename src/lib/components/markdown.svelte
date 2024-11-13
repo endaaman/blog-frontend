@@ -69,7 +69,11 @@
 
 <style lang="postcss">
   :global(.article-main h2) {
-    @apply border-b border-base-300 pb-2 mb-4;
+    /* @apply pb-2 mb-4; */
+    /* border-bottom: 0.8px solid var(--base-300); */
+    border-bottom: 0.8px solid oklch(var(--b3));
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   :global(.article-main .footnote-backref) {
