@@ -3,36 +3,29 @@
   import { onMount } from 'svelte'
   import { browser } from '$app/environment'
   import Markdown from '$lib/components/markdown.svelte'
+  import Giscus from '@giscus/svelte'
 
   export let data
   const article = data.article
   const pathname = `/${article.category.slug}/${article.slug}`
 
-  onMount(() => {
-    if (browser) {
-      const script = document.createElement('script')
-      script.src = 'https://giscus.app/client.js'
-      script.setAttribute('data-repo', 'endaaman/blog-frontend')
-      script.setAttribute('data-repo-id', 'R_kgDOJA50wQ')
-      script.setAttribute('data-category', 'General')
-      script.setAttribute('data-category-id', 'DIC_kwDOJA50wc4CkWxV')
-      script.setAttribute('data-mapping', 'pathname')
-      script.setAttribute('data-strict', '0')
-      script.setAttribute('data-reactions-enabled', '1')
-      script.setAttribute('data-emit-metadata', '0')
-      script.setAttribute('data-input-position', 'bottom')
-      script.setAttribute('data-theme', 'light_protanopia')
-      script.setAttribute('data-lang', 'ja')
-      script.setAttribute('data-loading', 'lazy')
-      script.setAttribute('data-description', 'Comments for')
-      script.crossOrigin = 'anonymous'
-      script.async = true
-      document.getElementById('comments')?.appendChild(script)
-      script.onload = () => {
-        console.log('Giscus loaded')
-      }
-    }
-  })
+  const giscusConfig = {
+    id: 'giscus-widget',
+    host: 'https://giscus.app',
+    repo: 'endaaman/blog-frontend',
+    repoId: 'R_kgDOJA50wQ',
+    category: 'General',
+    categoryId: 'DIC_kwDOJA50wc4CkWxV',
+    mapping: 'pathname',
+    strict: '0',
+    reactionsEnabled: '1',
+    inputPosition: 'bottom',
+    loading: 'lazy',
+    lang: 'ja',
+    term: '',
+    // theme: 'light_protanopia',
+    theme: 'light',
+  }
 </script>
 
 <svelte:head>
@@ -42,17 +35,18 @@
   <meta property="og:image" content={ article.image || `${$page.url.origin}/favicon.png` } />
   <meta property="og:description" content={article.digest} />
   <meta name="giscus:backlink" content={`https://endaaman.com${pathname}`}>
+  <meta name="giscus:description" content="Comments for">
 </svelte:head>
 
 <style>
-  .giscus {
+  .giscus-wrapper {
     width: 100%;
     margin: 2rem 0;
   }
   /* Not work */
-  /* :global(.gsc-reactions-count) { */
-  /*   display: none !important; */
-  /* } */
+  :global(.gsc-reactions-count::part(iframe)) {
+    display: none !important;
+  }
 </style>
 
 {#if article}
@@ -87,8 +81,8 @@
 </div>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
 
-<div class="comments-wrapper">
-  <div id="comments" class="giscus" />
+<div class="giscus-wrapper">
+  <Giscus {...giscusConfig}></Giscus>
 </div>
 
 {/if}

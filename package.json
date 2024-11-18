@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@egoist/tailwindcss-icons": "^1.8.1",
+		"@giscus/svelte": "^3.0.0",
 		"@iconify-json/lucide": "^1.2.9",
 		"@iconify-json/mdi": "^1.2.1",
 		"@sveltejs/adapter-auto": "^3.2.1",
