@@ -1,9 +1,38 @@
 <script>
-  import Markdown from '$lib/components/markdown.svelte'
   import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+  import { browser } from '$app/environment'
+  import Markdown from '$lib/components/markdown.svelte'
 
   export let data
   const article = data.article
+  const pathname = `/${article.category.slug}/${article.slug}`
+
+  onMount(() => {
+    if (browser) {
+      const script = document.createElement('script')
+      script.src = 'https://giscus.app/client.js'
+      script.setAttribute('data-repo', 'endaaman/blog-frontend')
+      script.setAttribute('data-repo-id', 'R_kgDOJA50wQ')
+      script.setAttribute('data-category', 'General')
+      script.setAttribute('data-category-id', 'DIC_kwDOJA50wc4CkWxV')
+      script.setAttribute('data-mapping', 'pathname')
+      script.setAttribute('data-strict', '0')
+      script.setAttribute('data-reactions-enabled', '1')
+      script.setAttribute('data-emit-metadata', '0')
+      script.setAttribute('data-input-position', 'bottom')
+      script.setAttribute('data-theme', 'light_protanopia')
+      script.setAttribute('data-lang', 'ja')
+      script.setAttribute('data-loading', 'lazy')
+      script.setAttribute('data-description', 'Comments for')
+      script.crossOrigin = 'anonymous'
+      script.async = true
+      document.getElementById('comments')?.appendChild(script)
+      script.onload = () => {
+        console.log('Giscus loaded')
+      }
+    }
+  })
 </script>
 
 <svelte:head>
@@ -12,7 +41,19 @@
   <meta property="og:title" content={article.title} />
   <meta property="og:image" content={ article.image || `${$page.url.origin}/favicon.png` } />
   <meta property="og:description" content={article.digest} />
+  <meta name="giscus:backlink" content={`https://endaaman.com${pathname}`}>
 </svelte:head>
+
+<style>
+  .giscus {
+    width: 100%;
+    margin: 2rem 0;
+  }
+  /* Not work */
+  /* :global(.gsc-reactions-count) { */
+  /*   display: none !important; */
+  /* } */
+</style>
 
 {#if article}
 
@@ -24,12 +65,10 @@
 </div>
 
 <h1 class="text-2xl mt-2">
-  <a href="/{article.category.slug}/{article.slug}" class="hover:text-secondary">{ article.title }</a>
+  <a href={pathname} class="hover:text-secondary">{ article.title }</a>
 </h1>
 
-{#if article}
-  <p class="my-2 text-sm">{ article.digest }</p>
-{/if}
+<p class="my-2 text-sm">{ article.digest }</p>
 
 <div class="my-2 flex flex-wrap gap-x-2">
   {#if article.tags.length > 0}
@@ -47,5 +86,9 @@
   <Markdown html={article.html}></Markdown>
 </div>
 <!-- <pre>{ JSON.stringify(article.tags, 0, 2) }</pre> -->
+
+<div class="comments-wrapper">
+  <div id="comments" class="giscus" />
+</div>
 
 {/if}
